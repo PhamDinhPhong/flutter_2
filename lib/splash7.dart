@@ -30,7 +30,7 @@ class _splash7State extends State<splash7> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => splash7()),
+                MaterialPageRoute(builder: (context) => splash8()),
               );
             },
             child: Text(
@@ -54,7 +54,7 @@ class _splash7State extends State<splash7> {
                     text: "What's your ",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -62,7 +62,7 @@ class _splash7State extends State<splash7> {
                     text: "current",
                     style: TextStyle(
                       color: Colors.purple,
-                      fontSize: 18,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -70,7 +70,7 @@ class _splash7State extends State<splash7> {
                     text: " body shape?",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -81,19 +81,22 @@ class _splash7State extends State<splash7> {
             Expanded(
               child: Column(
                 children: [
+                  Image.asset('assets/bodyshape.jpeg'),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   Text(
                     '${_currentSliderValue.round()}%', // Hiển thị giá trị của slider
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                   Text("Your estimated body fat", style: TextStyle(fontSize: 15, color: Colors.grey),),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      trackHeight: 10, // Đặt chiều cao của track
-                      overlayShape: RoundSliderOverlayShape(overlayRadius: 20), // Đặt hình dạng của overlay
+                      trackHeight: 18, // Đặt chiều cao của track
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 30), // Đặt hình dạng của overlay
                       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15), // Đặt hình dạng của thumb
                       thumbColor: Colors.purple, // Đặt màu sắc của thumb
                       activeTrackColor: Colors.purple[100], // Đặt màu sắc của phần track

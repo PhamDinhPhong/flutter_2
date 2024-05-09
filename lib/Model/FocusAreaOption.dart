@@ -18,10 +18,11 @@ class FocusAreaOption extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(left: 10),
+        margin: EdgeInsets.only(left: 10, top: 5),
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
-          width: 100,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          width: MediaQuery.of(context).size.width * 0.25,
+          height: MediaQuery.of(context).size.height * 0.07,
           decoration: BoxDecoration(
             border: Border.all(
               color: isSelected || (isFullBody && label != 'Full Body')

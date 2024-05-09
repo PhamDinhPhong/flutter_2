@@ -58,20 +58,22 @@ class _splash6State extends State<splash6> {
             SizedBox(height: 50),
             Expanded(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FocusAreaOption(
                         label: 'Full Body',
                         isSelected: isFullBodySelected,
                         onTap: () {
                           setState(() {
-                            if (isFullBodySelected) {
-                              isFullBodySelected = false;
-                              selectedAreas.clear();
-                            } else {
+                            if (!isFullBodySelected) {
                               isFullBodySelected = true;
                               selectedAreas = ['Arm', 'Chest', 'Belly', 'Leg'];
+                            } else {
+                              isFullBodySelected = false;
+                              selectedAreas.clear();
                             }
                           });
                         },
@@ -82,14 +84,20 @@ class _splash6State extends State<splash6> {
                         isSelected: selectedAreas.contains('Arm'),
                         onTap: () {
                           setState(() {
-                            if (isFullBodySelected &&
-                                selectedAreas.length == 4) {
+                            if (!selectedAreas.contains('Arm')) {
+                              selectedAreas.add('Arm');
+                            } else {
+                              selectedAreas.remove('Arm');
+                            }
+                            // Nếu đã chọn Full Body và tắt một trong bốn phần còn lại, hủy chọn Full Body
+                            if (selectedAreas.length < 4 &&
+                                isFullBodySelected) {
                               isFullBodySelected = false;
                             }
-                            if (selectedAreas.contains('Arm')) {
-                              selectedAreas.remove('Arm');
-                            } else {
-                              selectedAreas.add('Arm');
+                            // Nếu đã chọn cả 4 phần còn lại ngoại trừ Full Body, tự động chọn cả Full Body
+                            if (selectedAreas.length == 4 &&
+                                !isFullBodySelected) {
+                              isFullBodySelected = true;
                             }
                           });
                         },
@@ -100,14 +108,18 @@ class _splash6State extends State<splash6> {
                         isSelected: selectedAreas.contains('Chest'),
                         onTap: () {
                           setState(() {
-                            if (isFullBodySelected &&
-                                selectedAreas.length == 4) {
+                            if (!selectedAreas.contains('Chest')) {
+                              selectedAreas.add('Chest');
+                            } else {
+                              selectedAreas.remove('Chest');
+                            }
+                            if (selectedAreas.length < 4 &&
+                                isFullBodySelected) {
                               isFullBodySelected = false;
                             }
-                            if (selectedAreas.contains('Chest')) {
-                              selectedAreas.remove('Chest');
-                            } else {
-                              selectedAreas.add('Chest');
+                            if (selectedAreas.length == 4 &&
+                                !isFullBodySelected) {
+                              isFullBodySelected = true;
                             }
                           });
                         },
@@ -118,14 +130,18 @@ class _splash6State extends State<splash6> {
                         isSelected: selectedAreas.contains('Belly'),
                         onTap: () {
                           setState(() {
-                            if (isFullBodySelected &&
-                                selectedAreas.length == 4) {
+                            if (!selectedAreas.contains('Belly')) {
+                              selectedAreas.add('Belly');
+                            } else {
+                              selectedAreas.remove('Belly');
+                            }
+                            if (selectedAreas.length < 4 &&
+                                isFullBodySelected) {
                               isFullBodySelected = false;
                             }
-                            if (selectedAreas.contains('Belly')) {
-                              selectedAreas.remove('Belly');
-                            } else {
-                              selectedAreas.add('Belly');
+                            if (selectedAreas.length == 4 &&
+                                !isFullBodySelected) {
+                              isFullBodySelected = true;
                             }
                           });
                         },
@@ -136,14 +152,18 @@ class _splash6State extends State<splash6> {
                         isSelected: selectedAreas.contains('Leg'),
                         onTap: () {
                           setState(() {
-                            if (isFullBodySelected &&
-                                selectedAreas.length == 4) {
+                            if (!selectedAreas.contains('Leg')) {
+                              selectedAreas.add('Leg');
+                            } else {
+                              selectedAreas.remove('Leg');
+                            }
+                            if (selectedAreas.length < 4 &&
+                                isFullBodySelected) {
                               isFullBodySelected = false;
                             }
-                            if (selectedAreas.contains('Leg')) {
-                              selectedAreas.remove('Leg');
-                            } else {
-                              selectedAreas.add('Leg');
+                            if (selectedAreas.length == 4 &&
+                                !isFullBodySelected) {
+                              isFullBodySelected = true;
                             }
                           });
                         },
@@ -151,13 +171,11 @@ class _splash6State extends State<splash6> {
                       ),
                     ],
                   ),
-                  Container(
-                    width: 219,
-                    height: 219,
-                    child: Image.asset(
-                      'assets/man.png',
-                      fit: BoxFit.contain,
-                    ),
+                  Image.asset(
+                    'assets/man.png',
+                    fit: BoxFit.contain,
+                    width: 350,
+                    height: MediaQuery.of(context).size.height * 0.49,
                   )
                 ],
               ),
@@ -167,7 +185,7 @@ class _splash6State extends State<splash6> {
               margin: EdgeInsets.only(bottom: 30),
               child: Center(
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width - 50,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   height: 50,
                   child: ElevatedButton(
                     onPressed: isAnyOptionSelected

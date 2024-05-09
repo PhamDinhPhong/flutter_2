@@ -25,17 +25,18 @@ class splash2 extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: Text(
                       'To tailor a personalized plan for you, I`ll ask you some questions.',
-                      style: TextStyle(fontSize: 20),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20), // Khoảng cách giữa văn bản và nút "Next"
+            // Khoảng cách giữa văn bản và nút "Next"
             SizedBox(
-              width: 275.0,
-              height: 50.0,
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.07,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(

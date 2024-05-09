@@ -58,13 +58,24 @@ class _splash13State extends State<splash13> {
         child: Column(
           children: [
             SizedBox(height: 20),
-            Text(
-              "How long can you hold a plank?",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "How many squats can you do at one time?",
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              child: Image.asset(
+                'assets/squats.jpg',
+                width: 400,
+                height: 400,
+              ),
             ),
             SizedBox(height: 10),
             Expanded(

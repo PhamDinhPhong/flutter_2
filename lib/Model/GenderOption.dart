@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 
 class GenderOption extends StatefulWidget {
   final String title;
-  final String imagePath; // Đường dẫn đến hình ảnh
+  final String imagePath;
   final Function(bool) onSelected;
   final bool isSelected;
+  final double? width;
+  final double? height;
 
   const GenderOption({
     required this.title,
     required this.imagePath,
     required this.onSelected,
     required this.isSelected,
+    this.width,
+    this.height,
   });
 
   @override
@@ -20,6 +24,9 @@ class GenderOption extends StatefulWidget {
 class _GenderOptionState extends State<GenderOption> {
   @override
   Widget build(BuildContext context) {
+    double width = widget.width ?? MediaQuery.of(context).size.width * 0.4;
+    double height = widget.height ?? MediaQuery.of(context).size.height * 0.4;
+
     return GestureDetector(
       onTap: () {
         widget.onSelected(!widget.isSelected);
@@ -34,7 +41,7 @@ class _GenderOptionState extends State<GenderOption> {
               decoration: BoxDecoration(
                 border: Border.all(
                     color: widget.isSelected ? Colors.purple : Colors.grey,
-                    width: 1),
+                    width: 2),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -43,7 +50,9 @@ class _GenderOptionState extends State<GenderOption> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(widget.imagePath, height: 120, width: 120),
+                      Image.asset(widget.imagePath,
+                          height: height, width: width),
+                      // Sử dụng width và height từ widget
                       Center(
                         child: Text(
                           widget.title,

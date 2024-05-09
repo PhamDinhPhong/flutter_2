@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yoga/Model/MyAppBar.dart';
 import 'package:yoga/splash9.dart';
 
 class splash8 extends StatelessWidget {
@@ -7,32 +8,14 @@ class splash8 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Text('01 GOAL'),
-        centerTitle: true,
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => splash8()),
-              );
-            },
-            child: Text(
-              'Skip',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 18.0,
-              ),
-            ),
-          ),
-        ],
+      appBar: MyAppBar(
+        titleText: '01 GOAL',
+        onSkipPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => splash9()),
+          );
+        },
       ),
       body: Center(
         child: Column(
@@ -50,12 +33,12 @@ class splash8 extends StatelessWidget {
                     Text(
                         'Your goals are within reach!',
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      margin: EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
                         "Achieve significant results with small, realistic goal! Let's create the most suitable yoga plan for you!",
                         style: TextStyle(

@@ -1,127 +1,170 @@
 import 'package:flutter/material.dart';
-import 'package:ruler_picker_bn/ruler_picker_bn.dart';
+import 'package:flutter_ruler_picker/flutter_ruler_picker.dart';
+import 'package:yoga/Model/MyAppBar.dart';
 import 'package:yoga/splash18.dart';
 
 class splash17 extends StatefulWidget {
   const splash17({Key? key}) : super(key: key);
 
   @override
-  State<splash17> createState() => _splash17State();
+  State<splash17> createState() => _splash17WidgetState();
 }
 
-class _splash17State extends State<splash17> {
-  double _currentHeightCm = 170;
-  double _currentHeightFt = 5.5;
-  bool _isMetric = true;
+class _splash17WidgetState extends State<splash17> {
+  RulerPickerController? _rulerPickerController;
+  num currentValue = 152.4; // Giá trị mặc định là 152.4 cm
+  List<RulerRange> ranges = const [
+    RulerRange(begin: 0, end: 300, scale: 1), // Phạm vi từ 0 đến 300
+  ];
+  bool isFeetSelected = false; // Đơn vị hiện tại là cm
 
-  void _convertHeight(bool isMetric) {
-    if (isMetric) {
-      _currentHeightFt = _currentHeightCm / 30.48;
+  @override
+  void initState() {
+    super.initState();
+    _rulerPickerController = RulerPickerController(value: currentValue);
+  }
+
+  // Hàm chuyển đổi từ cm sang feet và ngược lại
+  num convertHeight(num value, bool toFeet) {
+    if (toFeet) {
+      // Chuyển từ cm sang feet
+      return value / 30.48; // 1 feet = 30.48 cm
     } else {
-      _currentHeightCm = _currentHeightFt * 30.48;
+      // Chuyển từ feet sang cm
+      return value * 30.48; // 1 cm = 0.0328084 feet
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: Text('03 BODY DATA'),
-        centerTitle: true,
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => splash18()),
-              );
-            },
-            child: Text(
-              'Skip',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 18.0,
-              ),
-            ),
-          ),
-        ],
+      appBar: MyAppBar(
+        titleText: '03 BODY DATA',
+        onSkipPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => splash18()),
+          );
+        },
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Text(
-              "What's your height?",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            ToggleButtons(
-              children: <Widget>[
-                Text('cm'),
-                Text('ft'),
-              ],
-              isSelected: [_isMetric, !_isMetric],
-              onPressed: (int index) {
-                setState(() {
-                  _isMetric = index == 0;
-                  _convertHeight(_isMetric);
-                });
-              },
-            ),
-            // RotatedBox(
-            //   quarterTurns: 3,
-            //   child: Slider(
-            //     value: _isMetric ? _currentHeightCm : _currentHeightFt,
-            //     min: _isMetric ? 100 : 3,
-            //     max: _isMetric ? 250 : 8,
-            //     divisions: _isMetric ? 150 : 50,
-            //     onChanged: (double value) {
-            //       setState(() {
-            //         if (_isMetric) {
-            //           _currentHeightCm = value;
-            //           _convertHeight(true);
-            //         } else {
-            //           _currentHeightFt = value;
-            //           _convertHeight(false);
-            //         }
-            //       });
-            //     },
-            //   ),
-            // ),
-            Expanded(
-              child: SizedBox(
-                width: 75,
-                height: 200,
-                child: RulerPicker(
-                  onChange: (val) {
-                    setState(() {
-                      _currentHeightCm = val as double;
-                    });
-                  },
-                  background: Colors.white,
-                  lineColor: Colors.black,
-                  direction: Axis.vertical,
-                  startValue: 70,
-                  maxValue: 200,
+      body: Stack(
+        alignment: Alignment.centerRight,
+        children: <Widget>[
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(
+                "What's your height?",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              ToggleButtons(
+                isSelected: [!isFeetSelected, isFeetSelected],
+                onPressed: (index) {
+                  setState(() {
+                    isFeetSelected =
+                        index == 1;
+                    currentValue = convertHeight(currentValue, isFeetSelected);
+                  });
+                },
+                children: [
+                  Text('cm',
+                      style: TextStyle(
+                          color: !isFeetSelected ? Colors.grey : Colors.black)),
+                  Text('ft',
+                      style: TextStyle(
+                          color: isFeetSelected ? Colors.grey : Colors.black)),
+                ],
+                color: Colors.grey[300],
+                selectedColor: Colors.black,
+                fillColor: Colors.grey[300],
+                borderColor: Colors.grey[300],
+                selectedBorderColor: Colors.black,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          currentValue.toStringAsFixed(1),
+                          style: const TextStyle(
+                            color: Colors.purple,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 60,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.3),
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          child: Image.asset(
+                            'assets/height.png',
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                    ),
+                    RotatedBox(
+                      quarterTurns: 1, // Không cần xoay RulerPicker
+                      child: RulerPicker(
+                        controller: _rulerPickerController!,
+                        onBuildRulerScaleText: (index, value) {
+                          return value.toInt().toString();
+                        },
+                        ranges: ranges,
+                        scaleLineStyleList: const [
+                          ScaleLineStyle(
+                              color: Colors.grey, width: 1.5, height: 30, scale: 0),
+                          ScaleLineStyle(
+                              color: Colors.grey, width: 1, height: 25, scale: 5),
+                          ScaleLineStyle(
+                              color: Colors.grey, width: 1, height: 15, scale: -1),
+                        ],
+                        onValueChanged: (value) {
+                          setState(() {
+                            currentValue = value;
+                          });
+                        },
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 80,
+                        rulerMarginTop: 8,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Text(
-              'Your height: ${_isMetric ? _currentHeightCm.round().toString() + ' cm' : _currentHeightFt.toStringAsFixed(1) + ' ft'}',
-              style: TextStyle(fontSize: 20),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to next screen or perform action
-              },
-              child: Text('Next'),
-            ),
-          ],
-        ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.08,
+                margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => splash18()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black, // Màu nền của nút là đen
+                    onPrimary: Colors.white, // Màu chữ của nút là trắng
+                  ),
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                        color: Colors.white), // Màu chữ của nút là trắng
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

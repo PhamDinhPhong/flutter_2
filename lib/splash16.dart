@@ -60,12 +60,11 @@ class _splash16State extends State<splash16> {
               color: Colors.purple,
               borderRadius: BorderRadius.circular(50),
               border: Border.all(
-                color: Colors.purple, // Màu của đường viền
-                width: 2, // Độ dày của đường viền
+                color: Colors.purple,
+                width: 2,
               ),
             ),
             child: Container(
-              // Container con để tạo lớp vùng trắng bên trong
               decoration: BoxDecoration(
                 color: Colors.white, // Màu của bộ khung bên trong
                 borderRadius: BorderRadius.circular(50),

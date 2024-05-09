@@ -59,7 +59,7 @@ class _splash12State extends State<splash12> {
           children: [
             SizedBox(height: 20),
             Text(
-              "Can you touch your toes without bending knees?",
+              "How long can you hold a plank?",
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold
@@ -67,6 +67,13 @@ class _splash12State extends State<splash12> {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 10),
+            Expanded(
+              child: Image.asset(
+                'assets/plank.jpg',
+                width: 400,
+                height: 400,
+              ),
+            ),
             Expanded(
               child: Column(
                 children: [

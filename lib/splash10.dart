@@ -51,9 +51,9 @@ class splash10 extends StatelessWidget {
             ),
             Expanded(
                 child: Image.asset(
-                  'assets/archery.png',
-                  width: 50,
-                  height: 50,
+                  'assets/sofa.png',
+                  width: 300,
+                  height: 300,
                 ),
             ),
             Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yoga/Model/GoalOption.dart';
 import 'package:yoga/splash5.dart';
 
 class splash4 extends StatefulWidget {
@@ -52,7 +53,7 @@ class _splash4State extends State<splash4> {
             Text(
               'What motivates you the most?',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
             GoalOption(
@@ -121,7 +122,6 @@ class _splash4State extends State<splash4> {
                 });
               },
             ),
-            // Tương tự với các GoalOption khác
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: isAnyOptionSelected
@@ -129,12 +129,15 @@ class _splash4State extends State<splash4> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                splash5()), // Điều hướng đến splash5
+                          builder: (context) => splash5(),
+                        ),
                       );
                     }
                   : null,
               style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all<Size>(
+                  Size(MediaQuery.of(context).size.width * 0.75, 60),
+                ),
                 backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                   (states) {
                     if (states!.contains(MaterialState.disabled)) {
@@ -147,67 +150,11 @@ class _splash4State extends State<splash4> {
               child: Text(
                 'Next',
                 style: TextStyle(
-                  color: isAnyOptionSelected
-                      ? Colors.white
-                      : Colors.white70, // Màu chữ trắng hoặc xám
-                ),
+                    color: isAnyOptionSelected ? Colors.white : Colors.white70,
+                    fontSize: 20),
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class GoalOption extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final bool isSelected;
-  final Function(bool) onSelected;
-
-  const GoalOption({
-    required this.title,
-    required this.icon,
-    required this.isSelected,
-    required this.onSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onSelected(
-            !isSelected); // Gửi lại trạng thái của lựa chọn khi nó được nhấn
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        child: Container(
-          padding: EdgeInsets.all(8),
-          margin: EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-            border: Border.all(
-                color: isSelected ? Colors.purple : Colors.grey, width: 1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(icon, color: isSelected ? Colors.purple : Colors.grey),
-                  SizedBox(width: 10),
-                  Text(title,
-                      style: TextStyle(
-                          color: isSelected ? Colors.purple : Colors.grey)),
-                ],
-              ),
-              isSelected
-                  ? Icon(Icons.check_circle_rounded, color: Colors.purple)
-                  : Icon(Icons.check_circle_rounded, color: Colors.grey),
-              // Hiển thị biểu tượng đánh dấu nếu lựa chọn được chọn
-            ],
-          ),
         ),
       ),
     );

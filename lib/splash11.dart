@@ -55,6 +55,13 @@ class _splash11State extends State<splash11> {
               ),
               textAlign: TextAlign.center,
             ),
+            Expanded(
+              child: Image.asset(
+                'assets/touchknees.png',
+                width: 400,
+                height: 400,
+              ),
+            ),
             SizedBox(height: 10),
             Expanded(
               child: Column(

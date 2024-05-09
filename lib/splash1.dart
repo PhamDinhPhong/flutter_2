@@ -14,7 +14,7 @@ class Splash1 extends StatelessWidget {
           ),
         ),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
@@ -22,11 +22,10 @@ class Splash1 extends StatelessWidget {
               ),
               Text(
                 'Welcome',
-                // textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              ),
-              SizedBox(
-                height: 10,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -68,28 +67,35 @@ class Splash1 extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                width: 250.0,
-                height: 50.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => splash2()),
-                    );
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Đặt border radius tại đây
+              Container(
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.05,
+                ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => splash2()),
+                      );
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Đặt border radius tại đây
+                        ),
                       ),
                     ),
+                    child: Text(
+                      "Let's start",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
                   ),
-                  child: Text('Let`s start',
-                      style: TextStyle(color: Colors.white)),
                 ),
               ),
             ]),
